@@ -194,7 +194,6 @@ void AI_move_Easy(void)
 		matrix[i][j] = playerTwoSymbol;
 }
 
-
 void disp_matrix(void) //matrix display
 {
 	int t;
@@ -235,6 +234,46 @@ char check(void) //used for identifying winner
 	return ' ';
 }
 
+bool vulnerabil(int mat[3][3])
+{
+	char a, b, c, d, e, f, g, h, i;
+	a = mat[0][0], b = mat[0][1], c = mat[0][2];
+	d = mat[1][0], e = mat[1][1], f = mat[1][2];
+	g = mat[2][0], h = mat[2][1], i = mat[2][2];
+	if ((a == playerOneSymbol && b == playerOneSymbol && c != playerTwoSymbol) || (b == playerOneSymbol && c == playerOneSymbol && a != playerTwoSymbol) || (a == playerOneSymbol && c == playerOneSymbol && b != playerTwoSymbol))
+	{
+		row = 1; return true;
+	}
+	if ((d == playerOneSymbol && e == playerOneSymbol && f != playerTwoSymbol) || (e == playerOneSymbol && f == playerOneSymbol && d != playerTwoSymbol) || (d == playerOneSymbol && f == playerOneSymbol && e != playerTwoSymbol))
+	{
+		row = 2; return true;
+	}
+	if ((g == playerOneSymbol && h == playerOneSymbol && i != playerTwoSymbol) || (h == playerOneSymbol && i == playerOneSymbol && g != playerTwoSymbol) || (g == playerOneSymbol && i == playerOneSymbol && h != playerTwoSymbol))
+	{
+		row = 3; return true;
+	}
+	if ((a == playerOneSymbol && d == playerOneSymbol && g != playerTwoSymbol) || (d == playerOneSymbol && g == playerOneSymbol && a != playerTwoSymbol) || (a == playerOneSymbol && g == playerOneSymbol && d != playerTwoSymbol))
+	{
+		column = 1; return true;
+	}
+	if ((b == playerOneSymbol && e == playerOneSymbol && h != playerTwoSymbol) || (e == playerOneSymbol && h == playerOneSymbol && b != playerTwoSymbol) || (b == playerOneSymbol && h == playerOneSymbol && e != playerTwoSymbol))
+	{
+		column = 2; return true;
+	}
+	if ((c == playerOneSymbol && f == playerOneSymbol && i != playerTwoSymbol) || (f == playerOneSymbol && i == playerOneSymbol && c != playerTwoSymbol) || (c == playerOneSymbol && i == playerOneSymbol && f != playerTwoSymbol))
+	{
+		column = 3; return true;
+	}
+	if ((a == playerOneSymbol && e == playerOneSymbol && i != playerTwoSymbol) || (e == playerOneSymbol && i == playerOneSymbol && a != playerTwoSymbol) || (a == playerOneSymbol && i == playerOneSymbol && e != playerTwoSymbol))
+	{
+		diagonal = 1; return true;
+	}
+	if ((g == playerOneSymbol && e == playerOneSymbol && c != playerTwoSymbol) || (e == playerOneSymbol && c == playerOneSymbol && g != playerTwoSymbol) || (g == playerOneSymbol && c == playerOneSymbol && e != playerTwoSymbol))
+	{
+		diagonal = 2; return true;
+	}
+	return false;
+}
 
 bool castigator(int mat[3][3])
 {
@@ -323,4 +362,21 @@ void reset()
 	row = 0;
 	column = 0;
 	diagonal = 0;
+}
+
+void assignSymbols(bool multiplayer) {
+    bool isUserX = genRand();
+
+    if (isUserX) {
+        playerOneSymbol = 'X';
+        playerTwoSymbol = 'O';
+    }else {
+        playerTwoSymbol = 'X';
+        playerOneSymbol = 'O';
+    }
+
+	cout<<(multiplayer?"Player 1 is ":"You are ")<<"playing as : "<<playerOneSymbol<<'\n';
+	if (multiplayer) {
+		cout<<"Player 2 is playing as : "<<playerTwoSymbol<<'\n';
+	}
 }
