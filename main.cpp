@@ -194,6 +194,151 @@ void AI_move_Easy(void)
 		matrix[i][j] = playerTwoSymbol;
 }
 
+void AI_move_Hard(void)
+{
+	char temp;
+	int test[3][3], temporary[3][3];
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+		{
+			test[i][j] = matrix[i][j]; temporary[i][j] = matrix[i][j];
+		}
+	int i, j;
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+			if (matrix[i][j] == ' ')
+			{
+				temp = matrix[i][j];
+				if (castigator(test))
+				{
+					if (row > 0)
+					{
+						if (matrix[row - 1][empty_c(row - 1)] != playerOneSymbol)
+							matrix[row - 1][empty_c(row - 1)] = playerTwoSymbol;
+						return;
+					}
+					if (column > 0)
+					{
+						if (matrix[empty_r(column - 1)][column - 1] != playerOneSymbol)
+							matrix[empty_r(column - 1)][column - 1] = playerTwoSymbol;
+						return;
+					}
+					if (diagonal == 1)
+					{
+						if (matrix[0][0] != playerOneSymbol && matrix[1][1] != playerOneSymbol && matrix[2][2] != playerOneSymbol)
+						{
+							matrix[0][0] = playerTwoSymbol; matrix[1][1] = playerTwoSymbol; matrix[2][2] = playerTwoSymbol;
+						}
+						return;
+					}
+					else
+					{
+						if (matrix[0][2] != playerOneSymbol && matrix[1][1] != playerOneSymbol && matrix[2][0] != playerOneSymbol)
+						{
+							matrix[0][2] = playerTwoSymbol; matrix[1][1] = playerTwoSymbol; matrix[2][0] = playerTwoSymbol;
+						}
+						return;
+					}
+					return;
+					//break;
+				}
+				test[i][j] = temp;
+			}
+		if (matrix[i][j] == ' ')
+		{
+			temp = matrix[i][j];
+			if (castigator(test))
+			{
+				if (row > 0)
+				{
+					if (matrix[row - 1][empty_c(row - 1)] != playerOneSymbol)
+						matrix[row - 1][empty_c(row - 1)] = playerTwoSymbol;
+					return;
+				}
+				if (column > 0)
+				{
+					if (matrix[empty_r(column - 1)][column - 1] != playerOneSymbol)
+						matrix[empty_r(column - 1)][column - 1] = playerTwoSymbol;
+					return;
+				}
+				if (diagonal == 1)
+				{
+					if (matrix[0][0] != playerOneSymbol && matrix[1][1] != playerOneSymbol && matrix[2][2] != playerOneSymbol)
+					{
+						matrix[0][0] = playerTwoSymbol; matrix[1][1] = playerTwoSymbol; matrix[2][2] = playerTwoSymbol;
+					}
+					return;
+				}
+				else
+				{
+					if (matrix[0][2] != playerOneSymbol && matrix[1][1] != playerOneSymbol && matrix[2][0] != playerOneSymbol)
+					{
+						matrix[0][2] = playerTwoSymbol; matrix[1][1] = playerTwoSymbol; matrix[2][0] = playerTwoSymbol;
+					}
+					return;
+				}
+				return;
+			}
+			test[i][j] = temp;
+		}
+	}
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+			if (matrix[i][j] == ' ')
+			{
+				temp = matrix[i][j];
+				test[i][j] = playerTwoSymbol;
+				if (!vulnerabil(test))
+					break;
+				test[i][j] = temp;
+			}
+		if (matrix[i][j] == ' ')
+		{
+			temp = matrix[i][j];
+			test[i][j] = playerTwoSymbol;
+			if (!vulnerabil(test))
+				break;
+			test[i][j] = temp;
+		}
+	}
+	if (column > 0)
+	{
+		if (matrix[empty_r(column - 1)][column - 1] != playerOneSymbol)
+			matrix[empty_r(column - 1)][column - 1] = playerTwoSymbol;
+		return;
+	}
+	if (row > 0)
+	{
+		if (matrix[row - 1][empty_c(row - 1)] != playerOneSymbol)
+			matrix[row - 1][empty_c(row - 1)] = playerTwoSymbol;
+		return;
+	}
+	if (diagonal == 1)
+	{
+		if (matrix[0][0] != playerOneSymbol)
+			matrix[0][0] = playerTwoSymbol;
+		if (matrix[1][1] != playerOneSymbol)
+			matrix[1][1] = playerTwoSymbol;
+		if (matrix[2][2] != playerOneSymbol)
+			matrix[2][2] = playerTwoSymbol;
+		return;
+	}
+	if (diagonal == 2)
+	{
+		if (matrix[0][2] != playerOneSymbol)
+			matrix[0][2] = playerTwoSymbol;
+		if (matrix[1][1] != playerOneSymbol)
+			matrix[1][1] = playerTwoSymbol;
+		if (matrix[2][0] != playerOneSymbol)
+			matrix[2][0] = playerTwoSymbol;
+		return;
+	}
+	if (matrix[i][j] != playerOneSymbol)
+		matrix[i][j] = playerTwoSymbol;
+}
+
 void disp_matrix(void) //matrix display
 {
 	int t;
